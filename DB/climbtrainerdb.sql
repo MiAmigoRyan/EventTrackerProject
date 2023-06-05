@@ -21,7 +21,7 @@ USE `climbtrainerdb` ;
 DROP TABLE IF EXISTS `exercise` ;
 
 CREATE TABLE IF NOT EXISTS `exercise` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NULL,
   `image_url` VARCHAR(2000) NULL,
   `video_url` VARCHAR(2000) NULL,
@@ -50,22 +50,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `training_session`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `training_session` ;
-
-CREATE TABLE IF NOT EXISTS `training_session` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `datetime` DATE NULL,
-  `location` VARCHAR(45) NULL,
-  `notes` VARCHAR(5000) NULL,
-  `user_id` VARCHAR(45) NULL,
-  `complete` TINYINT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `user`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `user` ;
@@ -76,10 +60,32 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
   `photo_URL` VARCHAR(45) NULL,
-  `admin` TINYINT NULL,
-  `enabled` VARCHAR(45) NULL,
+  `role` VARCHAR(20) NULL,
+  `enabled` TINYINT NULL,
   `usercol` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `training_session`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `training_session` ;
+
+CREATE TABLE IF NOT EXISTS `training_session` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `datetime` DATE NULL,
+  `location` VARCHAR(45) NULL,
+  `notes` VARCHAR(5000) NULL,
+  `complete` TINYINT NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `user_id`),
+  INDEX `fk_training_session_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_training_session_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -186,21 +192,21 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `training_session`
+-- Data for table `user`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `climbtrainerdb`;
-INSERT INTO `training_session` (`id`, `datetime`, `location`, `notes`, `user_id`, `complete`) VALUES (1, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `photo_URL`, `role`, `enabled`, `usercol`) VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `user`
+-- Data for table `training_session`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `climbtrainerdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `photo_URL`, `admin`, `enabled`, `usercol`) VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `training_session` (`id`, `datetime`, `location`, `notes`, `complete`, `user_id`) VALUES (1, NULL, NULL, NULL, NULL, 1);
 
 COMMIT;
 
