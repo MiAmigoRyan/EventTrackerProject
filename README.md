@@ -1,4 +1,5 @@
 # EventTrackerProject
+<<<<<<< HEAD
 # Overview
 This full-stack Java Spring project communicated with a MySql Database that implements Rest API.
 # Project Description
@@ -18,3 +19,4 @@ This climbing trainer training app will allow users to login and choose a prefor
 * MySql Workbench is used to build the database, it allows for a simple an user friendly gui that reduces the ammount of errors that may be encountered writing a DB 'by hand'. 
 * gitHub allowed for tracking of changes and a simple way to engage in further collaboration. 
 * STS4 is utilized for writing compiling and testing Java code.
+
