@@ -2,15 +2,10 @@
 This climbing trainer training app will allow users to login and choose a preformatted training program based on the duration of training program and their goals. Additionally coaches will be able to log in and create training programs for their clients. Further features will include private messaging between coaches and their users.
 
 #Technologies used:
-
 STS4
-
 MySql Workbench
-
 github
-
 restAPI
-
 postman
 
 #Lessons learned:
