@@ -7,7 +7,7 @@ This climbing trainer training app will allow users to login and choose a prefor
 
 # Database
 
-![databse entity relationship] 
+![databse entity relationship] (https://github.com/MiAmigoRyan/EventTrackerProject/blob/main/ClimbTrainerDBER.png)
 
 # Technologies used:
 * STS4
