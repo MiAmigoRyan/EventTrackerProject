@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +37,7 @@ public class ExerciseController {
 		) {
 		Exercise exercise = exerciseService.getExercise(exerciseId);
 		if(exercise==null) {
-			res.setStatus(404);
+			res.setStatus(400);
 		}
 		return exercise;
 	}
@@ -50,9 +51,9 @@ public class ExerciseController {
 			try {
 				newExercise = exerciseService.create(newExercise);
 				if(newExercise==null) {
-					res.setStatus(404);
+					res.setStatus(400);
 				}else {
-					res.setStatus(201);
+					res.setStatus(200);
 					StringBuffer url = req.getRequestURL();
 					url.append("/").append(newExercise.getId());
 					res.setHeader("Location", url.toString());
@@ -65,7 +66,7 @@ public class ExerciseController {
 			return newExercise;
 	}
 	
-	@PostMapping("exercises/{exerciseId}")
+	@PutMapping("exercises/{exerciseId}")
 	public Exercise updateExercise(
 			@RequestBody Exercise exercise,
 			@PathVariable("exerciseId") Integer exerciseId,
@@ -74,11 +75,11 @@ public class ExerciseController {
 			try {
 				exercise = exerciseService.update(exerciseId, exercise);
 				if (exercise == null) {
-					res.setStatus(404);
+					res.setStatus(400);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				res.setStatus(404);
+				res.setStatus(400);
 				exercise=null;
 			}
 			
@@ -92,9 +93,9 @@ public class ExerciseController {
 			HttpServletResponse res
 			) {
 			if(exerciseService.delete(exerciseId)) {
-				res.setStatus(204);
+				res.setStatus(200);
 			}else {
-				res.setStatus(404);
+				res.setStatus(400);
 			}
 		return ;
 		
