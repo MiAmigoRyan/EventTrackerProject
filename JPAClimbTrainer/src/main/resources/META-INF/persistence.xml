@@ -6,6 +6,7 @@
 
 	<!--BEGIN ENTITIES  -->
 <class>com.skilldistillery.climbtrainer.entities.Exercise</class>
+<class>com.skilldistillery.climbtrainer.entities.Session</class>
 
 	<!--END ENTITIES -->
     <properties>
