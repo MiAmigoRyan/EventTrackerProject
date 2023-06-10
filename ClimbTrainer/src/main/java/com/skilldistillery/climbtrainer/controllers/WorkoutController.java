@@ -25,7 +25,7 @@ public class WorkoutController {
 	@Autowired
 	private WorkoutService	workoutService;
 	
-	@GetMapping("workouts")
+	@GetMapping("/workouts")
 	public List<Workout> listSWorkout(){
 		return workoutService.listAllWorkouts();
 	}

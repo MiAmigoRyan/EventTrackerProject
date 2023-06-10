@@ -74,8 +74,8 @@ function configCreateButton(){
 
 function configSearchButton(){
 	//EXERCISE SEARCH BY ID	
-	let searchBtn = document.exerciseSearchForm.searchById;
-	searchBtn.textContent = 'Search ID';
+	let searchBtn = document.getElementsByName('searchById')[0];
+	searchBtn.textContent = 'Search Exercises';
 	searchBtn.addEventListener('click', function(e) {
 		e.preventDefault();
 		let exerciseId = document.exerciseSearchForm.exerciseId.value;
@@ -91,7 +91,7 @@ function configSearchButton(){
 function getExercises() {
 	let xhr = new XMLHttpRequest();
 
-	xhr.open('GET', 'api/exercises');
+	xhr.open('GET', '/api/exercises');
 
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
@@ -111,7 +111,7 @@ function getExercises() {
 function getExerciseById(exerciseId) {
 	let xhr = new XMLHttpRequest();
 
-	xhr.open('GET', 'api/exercises/' + exerciseId);
+	xhr.open('GET', '/api/exercises/' + exerciseId);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {

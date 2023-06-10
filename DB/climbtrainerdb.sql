@@ -68,11 +68,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `session`
+-- Table `workout`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `session` ;
+DROP TABLE IF EXISTS `workout` ;
 
-CREATE TABLE IF NOT EXISTS `session` (
+CREATE TABLE IF NOT EXISTS `workout` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `date` DATE NULL,
   `location` VARCHAR(45) NULL,
@@ -102,12 +102,12 @@ CREATE TABLE IF NOT EXISTS `training_session_has_training_session` (
   INDEX `fk_training_session_has_training_session_training_session_idx` (`training_session_idworkout` ASC),
   CONSTRAINT `fk_training_session_has_training_session_training_session`
     FOREIGN KEY (`training_session_idworkout`)
-    REFERENCES `session` (`id`)
+    REFERENCES `workout` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_training_session_has_training_session_training_session1`
     FOREIGN KEY (`training_session_idworkout1`)
-    REFERENCES `session` (`id`)
+    REFERENCES `workout` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `exercise_has_training_session` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_exercise_has_training_session_training_session1`
     FOREIGN KEY (`training_session_id`)
-    REFERENCES `session` (`id`)
+    REFERENCES `workout` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -211,21 +211,20 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `session`
+-- Data for table `workout`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `climbtrainerdb`;
-INSERT INTO `session` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (1, '2023-04-05', '40.025587,-105.2541109', 'wrecked! rough session', DEFAULT, 1);
-INSERT INTO `session` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (2, '2023-04-07', '40.1588713,-105.107395,15', 'felt good', DEFAULT, 1);
-INSERT INTO `session` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (3, '2023-04-08', '40.025587,-105.2541109', 'pr on max pulls', DEFAULT, 1);
-INSERT INTO `session` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (4, '2023-04-10', '39.9657298,-105.1191341', 'im hungry', DEFAULT, 1);
-INSERT INTO `session` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (5, '2023-04-12', '40.1588713,-105.107395,15', 'new shoes are too small', DEFAULT, 1);
-INSERT INTO `session` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (6, '2023-04-14', '39.9657298,-105.1191341', 'awesome set', DEFAULT, 1);
-INSERT INTO `session` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (7, '2023-04-16', '39.9657298,-105.1191341', 'Matt\'s birthday Challenge', DEFAULT, 1);
-INSERT INTO `session` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (8, '2023-04-17', '40.1588713,-105.107395,15', 'BenchPress pr', DEFAULT, 1);
-INSERT INTO `session` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (9, '2023-04-19', '39.9657298,-105.1191341', 'raawr', DEFAULT, 1);
-INSERT INTO `session` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (10, '2023-04-20', '40.1588713,-105.107395,15', 'knee injury', DEFAULT, 1);
-INSERT INTO `session` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (DEFAULT, NULL, NULL, NULL, DEFAULT, 1);
+INSERT INTO `workout` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (1, '2023-04-05', '40.025587,-105.2541109', 'wrecked! rough session', DEFAULT, 1);
+INSERT INTO `workout` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (2, '2023-04-07', '40.1588713,-105.107395,15', 'felt good', DEFAULT, 1);
+INSERT INTO `workout` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (3, '2023-04-08', '40.025587,-105.2541109', 'pr on max pulls', DEFAULT, 1);
+INSERT INTO `workout` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (4, '2023-04-10', '39.9657298,-105.1191341', 'im hungry', DEFAULT, 1);
+INSERT INTO `workout` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (5, '2023-04-12', '40.1588713,-105.107395,15', 'new shoes are too small', DEFAULT, 1);
+INSERT INTO `workout` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (6, '2023-04-14', '39.9657298,-105.1191341', 'awesome set', DEFAULT, 1);
+INSERT INTO `workout` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (7, '2023-04-16', '39.9657298,-105.1191341', 'Matt\'s birthday Challenge', DEFAULT, 1);
+INSERT INTO `workout` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (8, '2023-04-17', '40.1588713,-105.107395,15', 'BenchPress pr', DEFAULT, 1);
+INSERT INTO `workout` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (9, '2023-04-19', '39.9657298,-105.1191341', 'raawr', DEFAULT, 1);
+INSERT INTO `workout` (`id`, `date`, `location`, `notes`, `complete`, `user_id`) VALUES (10, '2023-04-20', '40.1588713,-105.107395,15', 'knee injury', DEFAULT, 1);
 
 COMMIT;
 

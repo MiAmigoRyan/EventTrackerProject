@@ -74,7 +74,7 @@ function configCreateButton(){
 
 function configSearchButton(){
 	//EXERCISE SEARCH BY ID	
-	let searchBtn = document.workoutSearchForm.searchById;
+	let searchBtn = document.workoutSearchForm.;
 	searchBtn.textContent = 'Search ID';
 	searchBtn.addEventListener('click', function(e) {
 		e.preventDefault();
@@ -135,8 +135,14 @@ function displayWorkouts(workouts) {
 	let workoutList = document.createElement('ul');
 
 	workouts.forEach(function(value) {
-		let li = document.createElement('li');
-		li.textContent = `${value.name}`;
+		let date = document.createElement('li');
+		date.textContent = `${value.date}`;
+		workoutList.appendChild(li);
+		let notes = document.createElement('li');
+		notes.textContent = `${value.notes}`;
+		workoutList.appendChild(li);
+		let exercises = document.createElement('li');
+		exercises.textContent = `${value.exercises}`;
 		workoutList.appendChild(li);
 
 		let deleteButton = document.createElement('button');
@@ -181,7 +187,7 @@ function displaySingleWorkout(workout) {
 
 	let workoutIdInput = document.createElement('input');
 	workoutIdInput.type = 'hidden';
-	workoutIdInput.name = 'exercrciseId';
+	workoutIdInput.name = 'workoutId';
 	workoutIdInput.value = workout.id;
 	delForm.appendChild(workoutIdInput);
 
@@ -268,7 +274,6 @@ function updatedWorkout(workoutId) {
 
 		let updatedName = nameInput.value;
 		if (!updatedName) {
-			//error message
 			console.log('updated Workout is null!')
 			return;
 		}

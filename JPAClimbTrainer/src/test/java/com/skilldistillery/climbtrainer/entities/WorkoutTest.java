@@ -17,7 +17,7 @@ class WorkoutTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Workout session;
+	private Workout workout;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,19 +32,19 @@ class WorkoutTest {
 	@BeforeEach
 	void setUp() throws Exception {
 	em= emf.createEntityManager();
-	session = em.find(Workout.class, 1);
+	workout = em.find(Workout.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		session = null;
+		workout = null;
 	}
 
 	@Test
 	void test() {
-		assertNotNull(session);
-		assertEquals("wrecked! rough session", session.getNotes());
+		assertNotNull(workout);
+		assertEquals("wrecked! rough session", workout.getNotes());
 	}
 
 }

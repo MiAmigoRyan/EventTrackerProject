@@ -3,16 +3,17 @@ package com.skilldistillery.climbtrainer.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.skilldistillery.climbtrainer.entities.Exercise;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.skilldistillery.climbtrainer.entities.Workout;
-import com.skilldistillery.climbtrainer.repositories.ExerciseRepository;
 import com.skilldistillery.climbtrainer.repositories.WorkoutRepository;
-
+@Service
 public class WorkoutServiceImpl implements WorkoutService {
-
+	
+	@Autowired
 	private WorkoutRepository workoutRepo;
 	
-	private ExerciseRepository exerciseRepo;
 	
 	@Override
 	public List<Workout> listAllWorkouts() {
