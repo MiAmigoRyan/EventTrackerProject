@@ -15,82 +15,82 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.climbtrainer.entities.Session;
-import com.skilldistillery.climbtrainer.services.SessionService;
+import com.skilldistillery.climbtrainer.entities.Workout;
+import com.skilldistillery.climbtrainer.services.WorkoutService;
 
 @RestController
 @RequestMapping("api")
-public class SessionController {
+public class WorkoutController {
 
 	@Autowired
-	private SessionService	sessionService;
+	private WorkoutService	workoutService;
 	
 	@GetMapping("workouts")
-	public List<Session> listSessions(){
-		return sessionService.listAllSessions();
+	public List<Workout> listSWorkout(){
+		return workoutService.listAllWorkouts();
 	}
 	
 	@GetMapping("workouts/{workoutId}")
-	public Session getSession(
-			@PathVariable("workoutId") Integer sessionId,
+	public Workout getWorkout(
+			@PathVariable("workoutId") Integer workoutId,
 			HttpServletResponse res
 			) {
-			Session session = sessionService.getSession(sessionId);
-			if(session==null) {
+			Workout workout = workoutService.getWorkout(workoutId);
+			if(workout==null) {
 				res.setStatus(400);
 			}
-			return session;
+			return workout;
 	}
 	
 	@PostMapping("workouts")
-	public Session addWorkout(
-		@RequestBody Session newSession,
+	public Workout addWorkout(
+		@RequestBody Workout newWorkout,
 		HttpServletRequest req,
 		HttpServletResponse res
 		) {
-		try {
-			newSession = sessionService.create(newSession);
-			if(newSession == null) {
+		newWorkout = workoutService.create(newWorkout);
+		try{	
+		if(newWorkout == null) {
 				res.setStatus(400);
 			} else {
 				res.setStatus(200);
 				StringBuffer url = req.getRequestURL();
-				url.append("/").append(newSession.getId());
+				url.append("/").append(newWorkout.getId());
 				res.setHeader("Location", url.toString());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			res.setStatus(400);
-			newSession=null;
+			newWorkout=null;
 		}
-		return newSession;
+		return newWorkout;
 	}
 	
 	@PutMapping("workouts/{workoutId}")
-	public Session updateSession(
-			@RequestBody Session session,
-			@PathVariable ("workoutId") Integer sessionId,
+	public Workout updateWorkout(
+			@RequestBody Workout workout,
+			@PathVariable ("workoutId") Integer workoutId,
 			HttpServletResponse res
 			) {
 		try {
-			session = sessionService.update(sessionId, session);
-			if(session == null) {
+			workout = workoutService.update(workoutId, workout);
+			if(workout == null) {
 				res.setStatus(400);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			res.setStatus(400);
-			session=null;
+			workout=null;
 		}
-		return session;
+		return workout;
 	}
 	
 	@DeleteMapping ("workouts/{workoutId}")
-	public void deleteSession(
-			@PathVariable("workoutId") Integer sessionId,
+	public void deleteWorkout(
+			@PathVariable("workoutId") Integer workoutId,
 			HttpServletResponse res
 			) {
-			if(sessionService.delete(sessionId)) {
+			if(workoutService.delete(workoutId)) {
 				res.setStatus(200);
 			}else {
 				res.setStatus(400);

@@ -18,7 +18,7 @@ public class Exercise {
 	private int id;
 	
 	@ManyToMany (mappedBy="exercises")
-	private List<Session> sessions;
+	private List<Workout> sessions;
 	
 	private String name;
 	
@@ -44,11 +44,11 @@ public class Exercise {
 		super();
 	}
 
-	public List<Session> getSessions() {
+	public List<Workout> getSessions() {
 		return sessions;
 	}
 
-	public void setSessions(List<Session> sessions) {
+	public void setSessions(List<Workout> sessions) {
 		this.sessions = sessions;
 	}
 

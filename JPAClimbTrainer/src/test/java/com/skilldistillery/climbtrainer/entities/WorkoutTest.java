@@ -13,11 +13,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class SessionTest {
+class WorkoutTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Session session;
+	private Workout session;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,7 +32,7 @@ class SessionTest {
 	@BeforeEach
 	void setUp() throws Exception {
 	em= emf.createEntityManager();
-	session = em.find(Session.class, 1);
+	session = em.find(Workout.class, 1);
 	}
 
 	@AfterEach

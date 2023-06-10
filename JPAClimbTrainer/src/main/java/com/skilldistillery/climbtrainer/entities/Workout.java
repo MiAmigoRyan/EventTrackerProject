@@ -14,7 +14,7 @@ import javax.persistence.ManyToMany;
 
 
 @Entity
-public class Session {
+public class Workout {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public class Session {
 
 	private boolean complete;
 	
-	public Session() {
+	public Workout() {
 		super();
 	}
 	public int getId() {
@@ -88,7 +88,7 @@ public class Session {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Session other = (Session) obj;
+		Workout other = (Workout) obj;
 		return complete == other.complete && Objects.equals(date, other.date)
 				&& Objects.equals(exercises, other.exercises) && id == other.id && Objects.equals(notes, other.notes);
 	}
