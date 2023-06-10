@@ -40,6 +40,13 @@ public class ExerciseServiceImpl implements ExerciseService {
 		if(exerciseOpt.isPresent()) {
 			Exercise managedExercise = exerciseOpt.get();
 			managedExercise.setName(exercise.getName());
+			managedExercise.setImage(exercise.getImage());
+			managedExercise.setVideo(exercise.getVideo());
+			managedExercise.setDescription(exercise.getDescription());
+			managedExercise.setType(exercise.getType());
+			managedExercise.setDuration(exercise.getDuration());
+			managedExercise.setDicipline(exercise.getDicipline());
+			
 			
 			return exerciseRepo.saveAndFlush(managedExercise);
 		}

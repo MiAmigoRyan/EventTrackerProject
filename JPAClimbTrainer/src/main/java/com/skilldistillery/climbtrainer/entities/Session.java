@@ -2,6 +2,7 @@ package com.skilldistillery.climbtrainer.entities;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,6 +29,13 @@ public class Session {
 	private Date date;
 	
 	private String notes;
+
+	public List<Exercise> getExercises() {
+		return exercises;
+	}
+	public void setExercises(List<Exercise> exercises) {
+		this.exercises = exercises;
+	}
 
 	private boolean complete;
 	
@@ -64,6 +72,32 @@ public class Session {
 
 	public void setComplete(boolean complete) {
 		this.complete = complete;
+	}
+
+	
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(complete, date, exercises, id, notes);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Session other = (Session) obj;
+		return complete == other.complete && Objects.equals(date, other.date)
+				&& Objects.equals(exercises, other.exercises) && id == other.id && Objects.equals(notes, other.notes);
+	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Session [id=").append(id).append(", exercises=").append(exercises).append(", date=")
+				.append(date).append(", notes=").append(notes).append(", complete=").append(complete).append("]");
+		return builder.toString();
 	}
 
 }

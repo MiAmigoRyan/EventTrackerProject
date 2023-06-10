@@ -2,6 +2,7 @@ package com.skilldistillery.climbtrainer.entities;
 
 import java.sql.Time;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -133,7 +134,36 @@ public class Exercise {
 
 	@Override
 	public String toString() {
-		return "Exercise [id=" + id + ", name=" + name + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Exercise [id=").append(id).append(", sessions=").append(sessions).append(", name=").append(name)
+				.append(", image=").append(image).append(", video=").append(video).append(", description=")
+				.append(description).append(", type=").append(type).append(", reps=").append(reps).append(", sets=")
+				.append(sets).append(", duration=").append(duration).append(", dicipline=").append(dicipline)
+				.append("]");
+		return builder.toString();
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(description, dicipline, duration, id, image, name, reps, sessions, sets, type, video);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Exercise other = (Exercise) obj;
+		return Objects.equals(description, other.description) && Objects.equals(dicipline, other.dicipline)
+				&& Objects.equals(duration, other.duration) && id == other.id && Objects.equals(image, other.image)
+				&& Objects.equals(name, other.name) && reps == other.reps && Objects.equals(sessions, other.sessions)
+				&& sets == other.sets && Objects.equals(type, other.type) && Objects.equals(video, other.video);
+	}
+
+	
+	
 	
 }
