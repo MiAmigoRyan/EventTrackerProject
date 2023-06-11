@@ -11,14 +11,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Exercise {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@JsonIgnore
 	@ManyToMany (mappedBy="exercises")
-	private List<Workout> sessions;
+	private List<Workout> workouts;
 	
 	private String name;
 	
@@ -44,12 +47,12 @@ public class Exercise {
 		super();
 	}
 
-	public List<Workout> getSessions() {
-		return sessions;
+	public List<Workout> getWorkouts() {
+		return workouts;
 	}
 
-	public void setSessions(List<Workout> sessions) {
-		this.sessions = sessions;
+	public void setWorkouts(List<Workout> workouts) {
+		this.workouts = workouts;
 	}
 
 	public String getImage() {
@@ -135,7 +138,7 @@ public class Exercise {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Exercise [id=").append(id).append(", sessions=").append(sessions).append(", name=").append(name)
+		builder.append("Exercise [id=").append(id).append(", workouts=").append(workouts).append(", name=").append(name)
 				.append(", image=").append(image).append(", video=").append(video).append(", description=")
 				.append(description).append(", type=").append(type).append(", reps=").append(reps).append(", sets=")
 				.append(sets).append(", duration=").append(duration).append(", dicipline=").append(dicipline)
@@ -145,7 +148,7 @@ public class Exercise {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, dicipline, duration, id, image, name, reps, sessions, sets, type, video);
+		return Objects.hash(description, dicipline, duration, id, image, name, reps, workouts, sets, type, video);
 	}
 
 	@Override
@@ -159,7 +162,7 @@ public class Exercise {
 		Exercise other = (Exercise) obj;
 		return Objects.equals(description, other.description) && Objects.equals(dicipline, other.dicipline)
 				&& Objects.equals(duration, other.duration) && id == other.id && Objects.equals(image, other.image)
-				&& Objects.equals(name, other.name) && reps == other.reps && Objects.equals(sessions, other.sessions)
+				&& Objects.equals(name, other.name) && reps == other.reps && Objects.equals(workouts, other.workouts)
 				&& sets == other.sets && Objects.equals(type, other.type) && Objects.equals(video, other.video);
 	}
 

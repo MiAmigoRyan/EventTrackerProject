@@ -73,8 +73,8 @@ function configCreateButton(){
 
 
 function configSearchButton(){
-	//EXERCISE SEARCH BY ID	
-	let searchBtn = document.workoutSearchForm.;
+	
+	let searchBtn = document.workoutSearchForm. ////  ;
 	searchBtn.textContent = 'Search ID';
 	searchBtn.addEventListener('click', function(e) {
 		e.preventDefault();

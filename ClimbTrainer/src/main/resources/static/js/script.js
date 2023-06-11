@@ -9,6 +9,7 @@ function init() {
 	configButtons();
 	getExercises();
 	
+	
 }
 
 
@@ -98,10 +99,10 @@ function getExercises() {
 			if (xhr.status === 200) {
 				let exercises = JSON.parse(xhr.responseText);
 				console.log(exercises);
-				displayExercises(exercises);
+				exerciseTable(exercises);
+				//displayExercises(exercises);
 			} else {
 				console.error(xhr.status + ': ' + xhr.responseText);
-				//TODO : displayError('ERROR MESSAGE')
 			}
 		}
 	};
@@ -127,16 +128,84 @@ function getExerciseById(exerciseId) {
 	xhr.send();
 };
 
+
+function exerciseTable(exercises) {
+ console.log(exercises);
+  let dataDiv = document.getElementById('exerciseData');
+  dataDiv.textContent = '';
+
+  let exerciseTable = document.createElement('table');
+  exerciseTable.classList.add('table');
+
+  let thead = document.createElement('thead');
+  let headerRow = document.createElement('tr');
+  thead.appendChild(headerRow);
+
+  let nameHeader = document.createElement('th');
+  nameHeader.textContent = 'Exercise Name';
+  headerRow.appendChild(nameHeader);
+
+  let idHeader = document.createElement('th');
+  idHeader.textContent = 'Exercise ID';
+  headerRow.appendChild(idHeader);
+
+  let tbody = document.createElement('tbody');
+
+  exercises.forEach(function (value) {
+    let row = document.createElement('tr');
+
+    let nameCell = document.createElement('td');
+    nameCell.textContent = value.name;
+    row.appendChild(nameCell);
+
+    let idCell = document.createElement('td');
+    idCell.textContent = value.id;
+    row.appendChild(idCell);
+
+    let deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.classList.add('btn');
+    deleteButton.classList.add('btn-danger');
+
+    let updateButton = document.createElement('button');
+    updateButton.textContent = 'Update';
+    updateButton.classList.add('btn');
+    updateButton.classList.add('btn-primary');
+
+    let buttonCell = document.createElement('td');
+    buttonCell.appendChild(deleteButton);
+    buttonCell.appendChild(updateButton);
+    row.appendChild(buttonCell);
+
+    // Event listeners for delete and update buttons
+    deleteButton.addEventListener('click', function () {
+      deleteExercise(value.id);
+    });
+
+    updateButton.addEventListener('click', function () {
+      updateExercise(value.id);
+    });
+
+    tbody.appendChild(row);
+  });
+
+  exerciseTable.appendChild(thead);
+  exerciseTable.appendChild(tbody);
+  dataDiv.appendChild(exerciseTable);
+}
+
+
 function displayExercises(exercises) {
 
 	let dataDiv = document.getElementById('exerciseData');
 	dataDiv.textContent = '';
+	
 
 	let exerciseList = document.createElement('ul');
 
 	exercises.forEach(function(value) {
 		let li = document.createElement('li');
-		li.textContent = `${value.name}`;
+		li.textContent = `${value.name}`,`${value.id}`;
 		exerciseList.appendChild(li);
 
 		let deleteButton = document.createElement('button');
@@ -203,6 +272,7 @@ function newExercise() {
 
 	let newExercise = {
 		name: document.newExerciseForm.name.value
+		
 	};
 	return newExercise;
 };

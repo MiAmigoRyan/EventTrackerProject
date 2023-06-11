@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Workout {
@@ -29,7 +31,7 @@ public class Workout {
 	private Date date;
 	
 	private String notes;
-
+	@JsonIgnore
 	public List<Exercise> getExercises() {
 		return exercises;
 	}
