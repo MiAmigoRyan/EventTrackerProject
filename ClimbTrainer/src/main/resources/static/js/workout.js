@@ -159,7 +159,6 @@ function displayWorkouts(workouts) {
 		li.appendChild(updateButton);
 		workoutList.appendChild(li);
 
-		// event listeners for delete and update buttons
 		deleteButton.addEventListener('click', function() {
 			deleteWorkout(value.id);
 		});

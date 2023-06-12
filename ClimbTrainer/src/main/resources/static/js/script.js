@@ -6,94 +6,12 @@ window.addEventListener('load', function(e) {
 });
 
 function init() {
-	configButtons();
-	getExercises();
-	
-	
-}
-
-
-function configButtons(){
-	configSearchButton();
-	configCreateButton();
-	
-	//configDeleteButton();
-	
-	//configUpdateButton();
-	
-}
-
-function getBr(){
-	return document.createElement('br')
-}
-
-function getHeader(levelHeader, textContent ){
-	
-//TODO ::	document.createElement('h'+levelHeader)
-// textContent
-}
-
-function configDeleteButton(){
-	
-}
-
-function configUpdateButton(){
-	let updateButton = document.createElement('button');
-	updateButton.textContent = 'Update';
-	updateForm.appendChild(nameLabel);
-	updateForm.appendChild(nameInput);
-	updateForm.appendChild(updateButton);
-	updateForm.addEventListener('submit', function(e) {
-		e.preventDefault();
-		let updatedName = nameInput.value;
-		if (!updatedName) {
-			//error message
-			console.log('updated Exercise is null!')
-			return;
-		}
-		let updatedExercise = {
-			id: exerciseId,
-			name: updatedName
-		};
-		sendUpdateRequest(exerciseId, updatedExercise);
-	});
-	let dataDiv = document.getElementById('exerciseData');
-	dataDiv.textContext = '';
-	dataDiv.appendChild(updateForm);
-}
-
-function configCreateButton(){
-	
-	//ADD EXERCISE
-	document.newExerciseForm.submit.addEventListener('click', function(e){
-		e.preventDefault();
-		createExercise(newExercise());
-		
-	}); 
-}
-
-
-function configSearchButton(){
-	//EXERCISE SEARCH BY ID	
-	let searchBtn = document.getElementsByName('searchById')[0];
-	searchBtn.textContent = 'Search Exercises';
-	searchBtn.addEventListener('click', function(e) {
-		e.preventDefault();
-		let exerciseId = document.exerciseSearchForm.exerciseId.value;
-		console.log(exerciseId);
-		
-		if (!isNaN(exerciseId) && exerciseId > 0) {
-			getExerciseById(exerciseId);
-		}		
-	}); 
-	
+	getExercises();	
 }
 
 function getExercises() {
 	let xhr = new XMLHttpRequest();
-
 	xhr.open('GET', '/api/exercises');
-
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
@@ -128,7 +46,6 @@ function getExerciseById(exerciseId) {
 	xhr.send();
 };
 
-
 function exerciseTable(exercises) {
  console.log(exercises);
   let dataDiv = document.getElementById('exerciseData');
@@ -145,10 +62,22 @@ function exerciseTable(exercises) {
   nameHeader.textContent = 'Exercise Name';
   headerRow.appendChild(nameHeader);
 
-  let idHeader = document.createElement('th');
-  idHeader.textContent = 'Exercise ID';
-  headerRow.appendChild(idHeader);
-
+  let repsHeader = document.createElement('th');
+  repsHeader.textContent = 'reps';
+  headerRow.appendChild(repsHeader);
+  
+  let setsHeader = document.createElement('th');
+  setsHeader.textContent = 'sets';
+  headerRow.appendChild(setsHeader);
+  
+  let totalRepsHeader = document.createElement('th');
+  totalRepsHeader.textContext = 'total reps';
+  headerRow.appendChild(totalRepsHeader);
+  
+  let descriptionHeader = document.createElement('th');
+  descriptionHeader.textContent = 'description';
+  headerRow.appendChild(descriptionHeader);
+ 
   let tbody = document.createElement('tbody');
 
   exercises.forEach(function (value) {
@@ -158,19 +87,32 @@ function exerciseTable(exercises) {
     nameCell.textContent = value.name;
     row.appendChild(nameCell);
 
-    let idCell = document.createElement('td');
-    idCell.textContent = value.id;
-    row.appendChild(idCell);
-
-    let deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
-    deleteButton.classList.add('btn');
-    deleteButton.classList.add('btn-danger');
+    let repsCell = document.createElement('td');
+    repsCell.textContent = value.reps;
+    row.appendChild(repsCell);
+    
+    let setsCell = document.createElement('td');
+    setsCell.textContent = value.sets;
+    row.appendChild(setsCell);
+    
+    let totalRepsCell = document.createElement('td');
+    let repsTotalCalc = parseInt(value.reps)*parseInt(value.sets);
+    totalRepsCell.textContent = repsTotalCalc;
+    row.appendChild(totalRepsCell);
+    
+    let descriptionCell = document.createElement('td');
+    descriptionCell.textContent = value.description;
+    row.appendChild(descriptionCell);
 
     let updateButton = document.createElement('button');
-    updateButton.textContent = 'Update';
+    updateButton.textContent = 'Change';
     updateButton.classList.add('btn');
     updateButton.classList.add('btn-primary');
+    
+    let deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Remove';
+    deleteButton.classList.add('btn');
+    deleteButton.classList.add('btn-danger');
 
     let buttonCell = document.createElement('td');
     buttonCell.appendChild(deleteButton);
@@ -183,7 +125,7 @@ function exerciseTable(exercises) {
     });
 
     updateButton.addEventListener('click', function () {
-      updateExercise(value.id);
+      updatedExercise(value.id);
     });
 
     tbody.appendChild(row);
@@ -193,47 +135,6 @@ function exerciseTable(exercises) {
   exerciseTable.appendChild(tbody);
   dataDiv.appendChild(exerciseTable);
 }
-
-
-function displayExercises(exercises) {
-
-	let dataDiv = document.getElementById('exerciseData');
-	dataDiv.textContent = '';
-	
-
-	let exerciseList = document.createElement('ul');
-
-	exercises.forEach(function(value) {
-		let li = document.createElement('li');
-		li.textContent = `${value.name}`,`${value.id}`;
-		exerciseList.appendChild(li);
-
-		let deleteButton = document.createElement('button');
-		deleteButton.textContent = 'Delete';
-		deleteButton.classList.add('btn');
-		deleteButton.classList.add('btn-danger');
-
-		let updateButton = document.createElement('button');
-		updateButton.textContent = 'Update';
-		updateButton.classList.add('btn');
-		updateButton.classList.add('btn-primary');
-
-		li.appendChild(deleteButton);
-		li.appendChild(updateButton);
-		exerciseList.appendChild(li);
-
-		// event listeners for delete and update buttons
-		deleteButton.addEventListener('click', function() {
-			deleteExercise(value.id);
-		});
-
-		updateButton.addEventListener('click', function() {
-			updatedExercise(value.id);
-		});
-	});
-
-	dataDiv.appendChild(exerciseList);
-};
 
 function displaySingleExercise(exercise) {
 	let dataDiv = document.getElementById('exerciseData');
@@ -271,7 +172,10 @@ function displaySingleExercise(exercise) {
 function newExercise() {
 
 	let newExercise = {
-		name: document.newExerciseForm.name.value
+		name: document.newExerciseForm.name.value,
+		reps: document.newExerciseForm.reps.value,
+		sets: document.newExerciseForm.sets.value,
+		description: document.newExerciseForm.description.value
 		
 	};
 	return newExercise;
@@ -325,6 +229,19 @@ function updatedExercise(exerciseId) {
 	nameInput.type = 'text';
 	nameInput.name = 'name';
 	nameInput.required = true;
+	
+	let repsInput = document.createElement('input');
+	repsInput.type= 'number';
+	repsInput.name ='reps';
+	
+	let setsInput = document.createElement('input');
+	setsInput.type = 'number';
+	setsInput.name= 'sets';
+	
+	let descriptionInput = document.createElement('input');
+	descriptionInput.type = 'text';
+	descriptionInput.name = 'description';
+	
 
 	let updateButton = document.createElement('button');
 	updateButton.textContent = 'Update';
@@ -338,13 +255,13 @@ function updatedExercise(exerciseId) {
 
 		let updatedName = nameInput.value;
 		if (!updatedName) {
-			//error message
 			console.log('updated Exercise is null!')
 			return;
 		}
 		let updatedExercise = {
 			id: exerciseId,
 			name: updatedName
+			
 		};
 
 		sendUpdateRequest(exerciseId, updatedExercise);
@@ -360,7 +277,6 @@ function sendUpdateRequest(exerciseId, updatedExercise) {
 	xhr.open('PUT', 'api/exercises/' + exerciseId);
 	xhr.setRequestHeader('Content-Type', 'application/json');
 
-
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
@@ -375,4 +291,5 @@ function sendUpdateRequest(exerciseId, updatedExercise) {
 	xhr.send(JSON.stringify(updatedExercise));
 
 }
+
 
