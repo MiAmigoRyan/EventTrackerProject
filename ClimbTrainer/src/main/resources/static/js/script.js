@@ -28,11 +28,10 @@ function getExercises() {
 };
 
 function createGetExerciseByIdForm() {
- let exerciseByIdContainer = document.createElement('div');
+ let exerciseByIdContainer = document.getElementById('findById');
  
   let label = document.createElement('label');
-  label.textContent = '';
-  
+  label.id='findByIdLabel'
   let input = document.createElement('input');
   input.type = 'text';
   input.id = 'exerciseIdInput';
@@ -50,8 +49,7 @@ function createGetExerciseByIdForm() {
   exerciseByIdContainer.appendChild(input);
   exerciseByIdContainer.appendChild(button);
   
-  let findByIdDiv = document.getElementById('findById');
-  findByIdDiv.appendChild(exerciseByIdContainer);
+ 
 }
 
 function getExerciseById(exerciseId) {

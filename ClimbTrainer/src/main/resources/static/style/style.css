@@ -6,3 +6,13 @@
 h1, h2, h3, h4, h5, h6 {
   color: #0d6efd; 
 }
+
+td{
+  padding: 5px;
+  margin: 5px;
+	
+} 
+#findByIdLabel{
+	padding:0px;
+	margin:0px;
+}
