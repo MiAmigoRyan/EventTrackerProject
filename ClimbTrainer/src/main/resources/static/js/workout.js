@@ -37,28 +37,7 @@ function configDeleteButton(){
 }
 
 function configUpdateButton(){
-	let updateButton = document.createElement('button');
-	updateButton.textContent = 'Update';
-	updateForm.appendChild(nameLabel);
-	updateForm.appendChild(nameInput);
-	updateForm.appendChild(updateButton);
-	updateForm.addEventListener('submit', function(e) {
-		e.preventDefault();
-		let updatedName = nameInput.value;
-		if (!updatedName) {
-			//error message
-			console.log('updated Workout is null!')
-			return;
-		}
-		let updatedWorkout = {
-			id: workoutId,
-			name: updatedName
-		};
-		sendUpdateRequest(workoutId, updatedWorkout);
-	});
-	let dataDiv = document.getElementById('workoutData');
-	dataDiv.textContext = '';
-	dataDiv.appendChild(updateForm);
+
 }
 
 function configCreateButton(){
@@ -71,22 +50,6 @@ function configCreateButton(){
 	}); 
 }
 
-
-function configSearchButton(){
-	
-	let searchBtn = document.workoutSearchForm. ////  ;
-	searchBtn.textContent = 'Search ID';
-	searchBtn.addEventListener('click', function(e) {
-		e.preventDefault();
-		let workoutId = document.workoutSearchForm.workoutId.value;
-		console.log(workoutId);
-		
-		if (!isNaN(workoutId) && workoutId > 0) {
-			getWorkoutById(workoutId);
-		}		
-	}); 
-	
-}
 
 function getWorkouts() {
 	let xhr = new XMLHttpRequest();
@@ -129,46 +92,6 @@ function getWorkoutById(workoutId) {
 
 function displayWorkouts(workouts) {
 
-	let dataDiv = document.getElementById('workoutData');
-	dataDiv.textContent = '';
-
-	let workoutList = document.createElement('ul');
-
-	workouts.forEach(function(value) {
-		let date = document.createElement('li');
-		date.textContent = `${value.date}`;
-		workoutList.appendChild(li);
-		let notes = document.createElement('li');
-		notes.textContent = `${value.notes}`;
-		workoutList.appendChild(li);
-		let exercises = document.createElement('li');
-		exercises.textContent = `${value.exercises}`;
-		workoutList.appendChild(li);
-
-		let deleteButton = document.createElement('button');
-		deleteButton.textContent = 'Delete';
-		deleteButton.classList.add('btn');
-		deleteButton.classList.add('btn-danger');
-
-		let updateButton = document.createElement('button');
-		updateButton.textContent = 'Update';
-		updateButton.classList.add('btn');
-		updateButton.classList.add('btn-primary');
-
-		li.appendChild(deleteButton);
-		li.appendChild(updateButton);
-		workoutList.appendChild(li);
-
-		deleteButton.addEventListener('click', function() {
-			deleteWorkout(value.id);
-		});
-
-		updateButton.addEventListener('click', function() {
-			updatedWorkout(value.id);
-		});
-	});
-
-	dataDiv.appendChild(workoutList);
 };
 
 function displaySingleWorkout(workout) {
@@ -220,7 +143,7 @@ function createWorkout(newWorkout) {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
 				console.log('newWorkout created :' + newWorkout);
-				//displaySingleWorkout(newWorkout);
+				
 				getWorkouts();
 			} else {
 				console.error('error creating workout', xhr.status, xhr.responseText);
@@ -251,41 +174,6 @@ function deleteWorkout(workoutId) {
 }
 
 function updatedWorkout(workoutId) {
-	let updateForm = document.createElement('form');
-
-	let nameLabel = document.createElement('label');
-	nameLabel.textContext = 'Name :';
-
-	let nameInput = document.createElement('input');
-	nameInput.type = 'text';
-	nameInput.name = 'name';
-	nameInput.required = true;
-
-	let updateButton = document.createElement('button');
-	updateButton.textContent = 'Update';
-
-	updateForm.appendChild(nameLabel);
-	updateForm.appendChild(nameInput);
-	updateForm.appendChild(updateButton);
-
-	updateForm.addEventListener('submit', function(e) {
-		e.preventDefault();
-
-		let updatedName = nameInput.value;
-		if (!updatedName) {
-			console.log('updated Workout is null!')
-			return;
-		}
-		let updatedWorkout = {
-			id: workoutId,
-			name: updatedName
-		};
-
-		sendUpdateRequest(workoutId, updatedWorkout);
-	});
-	let dataDiv = document.getElementById('workoutData');	
-	dataDiv.textContext = '';
-	dataDiv.appendChild(updateForm);
 
 }
 

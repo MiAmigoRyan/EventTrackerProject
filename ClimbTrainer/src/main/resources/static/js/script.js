@@ -1,7 +1,5 @@
 window.addEventListener('load', function(e) {
-
 	console.log('js loaded with event function');
-
 	init();
 });
 
@@ -19,7 +17,7 @@ function getExercises() {
 			if (xhr.status === 200) {
 				let exercises = JSON.parse(xhr.responseText);
 				console.log(exercises);
-				exerciseTable(exercises);
+				exerciseTable(exercises);	
 			} else {
 				console.error(xhr.status + ': ' + xhr.responseText);
 			}
@@ -144,7 +142,14 @@ function exerciseTable(exercises) {
 
     // Event listeners for delete and update buttons
     deleteButton.addEventListener('click', function () {
-      deleteExercise(value.id);
+     let confirmDelete= confirm('are you sure you want to delete this exercise?')
+     if(confirmDelete){ 
+		 console.log(value.name +' has been deleted');
+		 deleteExercise(value.id);
+     	
+     }else{
+		 console.log('delete cancled')
+	 }
     });
 
     updateButton.addEventListener('click', function () {
@@ -299,66 +304,63 @@ function updateModal(exerciseId) {
 }
 
 function displaySingleExercise(exercise) {
-//create element
   let modal = document.createElement('div');
   modal.classList.add('modal');
   modal.classList.add('fade'); // Add fade in
-  modal.setAttribute('id', 'updateModal');
+  modal.setAttribute('id', 'signeExerciseModal');
   modal.setAttribute('tabindex', '-1');
-  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-hidden', 'true');
 
-  //dialog 
   let modalDialog = document.createElement('div');
   modalDialog.classList.add('modal-dialog');
   modalDialog.setAttribute('role', 'document');
 
-  //content container
   let modalContent = document.createElement('div');
   modalContent.classList.add('modal-content');
 
-  //modal header
   let modalHeader = document.createElement('div');
   modalHeader.classList.add('modal-header');
 
- // close button
   let closeButton = document.createElement('button');
-  closeButton.innerHTML = '&times;'; // 'x'
-  closeButton.classList.add('close');
+  closeButton.innerHTML = '&times;';
+  closeButton.classList.add('btn-close');
   closeButton.setAttribute('type', 'button');
-  closeButton.setAttribute('data-dismiss', 'modal'); 
+  closeButton.setAttribute('data-bs-dismiss', 'modal');
+  closeButton.setAttribute('aria-label', 'Close');
 
   modalHeader.appendChild(closeButton);
-  
+
   let exerciseDetails = document.createElement('div');
-  exerciseDetails.classList.add('exercise-details');
-  
+  exerciseDetails.classList.add('modal-body');
+
   let exerciseName = document.createElement('h2');
   exerciseName.textContent = exercise.name;
-  
+
   let exerciseDescription = document.createElement('p');
   exerciseDescription.textContent = exercise.description;
-  
+
   exerciseDetails.appendChild(exerciseName);
   exerciseDetails.appendChild(exerciseDescription);
-  
-  modalContent.appendChild(closeButton);
-  modalContent.appendChild(exerciseDetails);
-  
-  modal.appendChild(modalContent);
-  
-  document.body.appendChild(modal);
-  
-  // Open the modal
-  $(modal).modal('show');
-  
-  // Close modal when close button is clicked
-    closeButton.addEventListener('click', function() {
-    $(modal).modal('hide');
-    modal.remove(); 
-  });
- 
-}
 
+  modalContent.appendChild(modalHeader);
+  modalContent.appendChild(exerciseDetails);
+
+  modalDialog.appendChild(modalContent);
+
+  modal.appendChild(modalDialog);
+
+  document.body.appendChild(modal);
+
+  // Open the modal
+  let bsModal = new bootstrap.Modal(modal);
+  bsModal.show();
+
+  // Close modal when close button is clicked
+  closeButton.addEventListener('click', function () {
+    bsModal.hide();
+    modal.remove();
+  });
+}
 
 function newExercise() {
   return {
@@ -378,7 +380,7 @@ function createExercise(newExercise) {
 			if (xhr.status === 200) {
 				console.log('newExercise created :' + newExercise);
 				//TODO add pop up of new exercise with confirmation button
-				exerciseTable();
+				getExercises();
 			} else {
 				console.error('error creating exercise', xhr.status, xhr.responseText);
 				//TODO ERROR MESSAGE
@@ -407,39 +409,39 @@ function deleteExercise(exerciseId) {
 	xhr.send();
 }
 
-function createExerciseModal(){
-
-function openCreateModal() {
-  const modal = document.getElementById('createExerciseModal');
-  modal.style.display = 'block';
-}
-
-function closeCreateModal() {
-  const modal = document.getElementById('createExerciseModal');
-  modal.style.display = 'none';
-}
-
-document.getElementById('openCreateModalBtn').addEventListener('click', openCreateModal);
-document.querySelector('#createExerciseModal .close').addEventListener('click', closeCreateModal);
-
-// close modal clicking outside
-window.addEventListener('click', function(event) {
-  const modal = document.getElementById('createExerciseModal');
-  if (event.target == modal) {
-    closeCreateModal();
+function createExerciseModal() {
+  function openCreateModal() {
+    const modal = document.getElementById('createExerciseModal');
+    modal.style.display = 'block';
   }
-});
 
-//event listener to form
-document.getElementById('createExerciseForm').addEventListener('submit', function(event) {
-  event.preventDefault(); 
-  const newExerciseData = {
-    name: document.getElementById('createExerciseForm').name.value,
-    reps: document.getElementById('createExerciseForm').reps.value,
-    sets: document.getElementById('createExerciseForm').sets.value,
-    description: document.getElementById('createExerciseForm').description.value
-  };
-  createExercise(newExerciseData);
-  closeCreateModal();
-});
+  function closeCreateModal() {
+    const modal = document.getElementById('createExerciseModal');
+    modal.style.display = 'none';
+  }
+
+  document.getElementById('openCreateModalBtn').addEventListener('click', openCreateModal);
+  document.querySelector('#createExerciseModal .close').addEventListener('click', closeCreateModal);
+
+  // Close modal when clicking outside
+  window.addEventListener('click', function(event) {
+    const modal = document.getElementById('createExerciseModal');
+    if (event.target == modal) {
+      closeCreateModal();
+    }
+  });
+
+  // Event listener for the form submission
+  document.getElementById('createExerciseForm').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    const newExerciseData = {
+      name: document.getElementById('createExerciseForm').elements.name.value,
+      reps: document.getElementById('createExerciseForm').elements.reps.value,
+      sets: document.getElementById('createExerciseForm').elements.sets.value,
+      description: document.getElementById('createExerciseForm').elements.description.value
+    };
+    createExercise(newExerciseData);
+    console.log(newExerciseData);
+    closeCreateModal();
+  });
 }
