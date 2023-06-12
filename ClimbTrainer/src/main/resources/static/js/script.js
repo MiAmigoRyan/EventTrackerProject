@@ -1,12 +1,13 @@
 window.addEventListener('load', function(e) {
 	console.log('js loaded with event function');
+	
 	init();
 });
 
 function init() {
-	createGetExerciseByIdForm();
 	createExerciseModal();
 	getExercises();	
+	createGetExerciseByIdForm();
 }
 
 function getExercises() {
@@ -27,25 +28,30 @@ function getExercises() {
 };
 
 function createGetExerciseByIdForm() {
-  const label = document.createElement('label');
-  label.textContent = 'Exercise ID:';
+ let exerciseByIdContainer = document.createElement('div');
+ 
+  let label = document.createElement('label');
+  label.textContent = '';
   
-  const input = document.createElement('input');
+  let input = document.createElement('input');
   input.type = 'text';
   input.id = 'exerciseIdInput';
   
-  const button = document.createElement('button');
+  let button = document.createElement('button');
   button.textContent = 'Exercise Details by ID';
   
   button.addEventListener('click', function(event) {
     event.preventDefault();
-    const exerciseId = document.getElementById('exerciseIdInput').value;
+    let exerciseId = document.getElementById('exerciseIdInput').value;
     getExerciseById(exerciseId);
   });
   
-  document.body.appendChild(label);
-  document.body.appendChild(input);
-  document.body.appendChild(button);
+  exerciseByIdContainer.appendChild(label);
+  exerciseByIdContainer.appendChild(input);
+  exerciseByIdContainer.appendChild(button);
+  
+  let findByIdDiv = document.getElementById('findById');
+  findByIdDiv.appendChild(exerciseByIdContainer);
 }
 
 function getExerciseById(exerciseId) {
