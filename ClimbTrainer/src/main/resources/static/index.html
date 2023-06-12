@@ -8,47 +8,46 @@
 	<script type="text/javascript" src="js/workout.js"></script>
 	 -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-	
 	<!--jQuery library for modal  -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<!-- bootstrap js library -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-	
-	
 	<!--TODO: CSS LINK  -->
 </head>
 <body>
-	<h1>Climbing Training Tracker</h1>
-	
+	<h1>Climb Coach</h1>	
 	<form name=exerciseSearchForm>
 		<input type='number' name='exerciseId'>
 		<button name='searchById'>Search ID</button>
 	</form>
+	<!-- create exercise modal! -->
+	<div id="createExerciseModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Add an Exercise</h2>
+    <form id="createExerciseForm">
+      <label for="name">Exercise Name:</label>
+      <input type="text" name="name">
+      <br>
+      <label for="reps">Reps:</label>
+      <input type="number" name="reps">
+      <br>
+      <label for="sets">Sets:</label>
+      <input type="number" name="sets">
+      <br>
+      <label for="description">Description:</label>
+      <input type="text" name="description">
+      <br>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+<button id="openCreateModalBtn">Add Exercise</button>
 
 	<hr>
 	<div id='output'>
 		<div id='exerciseData'></div>
 	</div>
 	<hr>
-	<h3>Add an Exercise</h3>
-		<form name='newExerciseForm'>
-			<label for='name'>Exercise Name:</label>
-			<input type='text' name='name'>
-			<br>
-			<label for='reps'>reps:</label>
-			<input type='number' name='reps'>
-			<br>
-			
-			<label for='sets'>sets:</label>
-			<input type='number' name='sets'>
-			<br>
-			
-			<label for='description'>description:</label>
-			<input type='text' name='description'>
-			<br>
-			
-			<button name='submit'>submit</button>
-		</form>
-	
 </body>
 </html>
