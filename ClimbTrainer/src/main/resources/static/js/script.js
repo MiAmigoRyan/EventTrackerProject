@@ -27,6 +27,27 @@ function getExercises() {
 	xhr.send();
 };
 
+function darkModeToggle() {
+  let html = document.querySelector('html');
+  let currentTheme = html.getAttribute('data-bs-theme');
+
+  if (currentTheme === 'dark') {
+    html.setAttribute('data-bs-theme', 'light');
+  } else {
+    html.setAttribute('data-bs-theme', 'dark');
+  }
+}
+
+function modeToggle() {
+  let modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('change', darkModeToggle);
+}
+
+function modeToggle() {
+  let modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('click', darkModeToggle);
+}
+
 function createGetExerciseByIdForm() {
  let exerciseByIdContainer = document.getElementById('findById');
  
