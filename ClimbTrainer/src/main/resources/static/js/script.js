@@ -18,7 +18,6 @@ function getExercises() {
 				let exercises = JSON.parse(xhr.responseText);
 				console.log(exercises);
 				exerciseTable(exercises);
-				//displayExercises(exercises);
 			} else {
 				console.error(xhr.status + ': ' + xhr.responseText);
 			}
@@ -47,7 +46,7 @@ function getExerciseById(exerciseId) {
 };
 
 function exerciseTable(exercises) {
- console.log(exercises);
+
   let dataDiv = document.getElementById('exerciseData');
   dataDiv.textContent = '';
 
@@ -71,7 +70,7 @@ function exerciseTable(exercises) {
   headerRow.appendChild(setsHeader);
   
   let totalRepsHeader = document.createElement('th');
-  totalRepsHeader.textContext = 'total reps';
+  totalRepsHeader.textContent = 'total reps';
   headerRow.appendChild(totalRepsHeader);
   
   let descriptionHeader = document.createElement('th');
@@ -125,7 +124,7 @@ function exerciseTable(exercises) {
     });
 
     updateButton.addEventListener('click', function () {
-      updatedExercise(value.id);
+      updateModal(value.id);
     });
 
     tbody.appendChild(row);
@@ -135,6 +134,128 @@ function exerciseTable(exercises) {
   exerciseTable.appendChild(tbody);
   dataDiv.appendChild(exerciseTable);
 }
+
+function updateModal(exerciseId) {
+ //create element
+  let modal = document.createElement('div');
+  modal.classList.add('modal');
+  modal.classList.add('fade'); // Add fade in
+  modal.setAttribute('id', 'updateModal');
+  modal.setAttribute('tabindex', '-1');
+  modal.setAttribute('role', 'dialog');
+
+  //dialog 
+  let modalDialog = document.createElement('div');
+  modalDialog.classList.add('modal-dialog');
+  modalDialog.setAttribute('role', 'document');
+
+  //content container
+  let modalContent = document.createElement('div');
+  modalContent.classList.add('modal-content');
+
+  //modal header
+  let modalHeader = document.createElement('div');
+  modalHeader.classList.add('modal-header');
+
+  // close button
+  let closeButton = document.createElement('button');
+  closeButton.innerHTML = '&times;'; // 'x'
+  closeButton.classList.add('close');
+  closeButton.setAttribute('type', 'button');
+  closeButton.setAttribute('data-dismiss', 'modal'); 
+
+  modalHeader.appendChild(closeButton);
+
+  // Create modal body
+  let modalBody = document.createElement('div');
+  modalBody.classList.add('modal-body');
+
+  // Create update form
+  let updateForm = document.createElement('form');
+  updateForm.setAttribute('id', 'updateForm');
+
+  	let nameLabel = document.createElement('label');
+	nameLabel.textContent = 'Name :';
+
+	let nameInput = document.createElement('input');
+	nameInput.type = 'text';
+	nameInput.name = 'name';
+	nameInput.required = true;
+	
+	let repsLabel = document.createElement('label');
+	repsLabel.textContent = 'Reps :'
+	let repsInput = document.createElement('input');
+	repsInput.type= 'number';
+	repsInput.name ='reps';
+	
+	let setsLabel = document.createElement('label');
+	setsLabel.textcontent = 'Sets :';	
+	let setsInput = document.createElement('input');
+	setsInput.type = 'number';
+	setsInput.name= 'sets';
+	
+	let descriptionLabel = document.createElement('label');
+	descriptionLabel.textContent = 'Description :';
+	
+	let descriptionInput = document.createElement('input');
+	descriptionInput.type = 'text';
+	descriptionInput.name = 'description';
+
+	updateForm.appendChild(nameLabel);
+	updateForm.appendChild(nameInput);
+	updateForm.appendChild(repsLabel);
+	updateForm.appendChild(repsInput);
+	updateForm.appendChild(setsLabel);
+	updateForm.appendChild(setsInput);
+	updateForm.appendChild(descriptionLabel);
+	updateForm.appendChild(descriptionInput);
+
+  // Create update button
+  let updateButton = document.createElement('button');
+  updateButton.textContent = 'Update';
+  updateButton.classList.add('btn');
+  updateButton.classList.add('btn-primary');
+  updateButton.setAttribute('type', 'submit');
+
+  // Append update button to update form
+  updateForm.appendChild(updateButton);
+
+  // Append update form to modal body
+  modalBody.appendChild(updateForm);
+
+  // Append modal header and modal body to modal content
+  modalContent.appendChild(modalHeader);
+  modalContent.appendChild(modalBody);
+
+  // Append modal content to modal dialog
+  modalDialog.appendChild(modalContent);
+
+  // Append modal dialog to modal
+  modal.appendChild(modalDialog);
+
+  // Append modal to the document body
+  document.body.appendChild(modal);
+
+  // Display the modal
+  $(modal).modal('show'); // Use Bootstrap's JavaScript API to show the modal
+
+  // Handle form submission
+  updateForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    // Call the updatedExercise function or perform the necessary update logic
+    updatedExercise(exerciseId);
+
+    // Close the modal
+    $(modal).modal('hide'); // Use Bootstrap's JavaScript API to hide the modal
+  });
+
+  // Handle modal close
+  closeButton.addEventListener('click', function () {
+    // Close the modal
+    $(modal).modal('hide'); // Use Bootstrap's JavaScript API to hide the modal
+  });
+}
+
 
 function displaySingleExercise(exercise) {
 	let dataDiv = document.getElementById('exerciseData');
@@ -146,7 +267,6 @@ function displaySingleExercise(exercise) {
 
 	dataDiv.appendChild(singleExercise);
 
-	//make delete button separate function???
 	let delForm = document.createElement("p");
 
 	let exerciseIdInput = document.createElement('input');
@@ -220,35 +340,8 @@ function deleteExercise(exerciseId) {
 }
 
 function updatedExercise(exerciseId) {
-	let updateForm = document.createElement('form');
 
-	let nameLabel = document.createElement('label');
-	nameLabel.textContext = 'Name :';
 
-	let nameInput = document.createElement('input');
-	nameInput.type = 'text';
-	nameInput.name = 'name';
-	nameInput.required = true;
-	
-	let repsInput = document.createElement('input');
-	repsInput.type= 'number';
-	repsInput.name ='reps';
-	
-	let setsInput = document.createElement('input');
-	setsInput.type = 'number';
-	setsInput.name= 'sets';
-	
-	let descriptionInput = document.createElement('input');
-	descriptionInput.type = 'text';
-	descriptionInput.name = 'description';
-	
-
-	let updateButton = document.createElement('button');
-	updateButton.textContent = 'Update';
-
-	updateForm.appendChild(nameLabel);
-	updateForm.appendChild(nameInput);
-	updateForm.appendChild(updateButton);
 
 	updateForm.addEventListener('submit', function(e) {
 		e.preventDefault();
