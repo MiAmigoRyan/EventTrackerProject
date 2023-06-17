@@ -1,0 +1,64 @@
+<h1>EXERCISE TRACKER💪</h1>
+<hr>
+<div>
+  <form>ADD NEW EXERCISE:
+    <br>
+    <input type="text" [(ngModel)] = "newExercise.name" placeholder= 'Exercise Name'>
+    <br>
+    <input type="text" [(ngModel)] = "newExercise.description" placeholder="Description">
+    <br>
+    <input type="text" [(ngModel)] = "newExercise.sets" placeholder="SETS">
+    <br>
+    <input type="text" [(ngModel)] = "newExercise.reps" placeholder="REPS">
+    <br>
+    <button class="btn btn-success"type="submit" (click)="createExercise(newExercise)">ADD EXERCISE</button>
+  </form>
+</div>
+<hr>
+<hr>
+<div *ngIf="!selected" id="exerciseList">
+  <table class="table-striped table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Sets</th>
+        <th>Reps</th>
+        <th></th>
+      </tr>
+    </thead>
+      <tbody>
+        <tr *ngFor="let ex of exerciseList"  >
+          <td>{{ex.id}}</td>
+          <td (click)='displaySingleExercise(ex)'>{{ex.name}}</td>
+          <td>{{ex.sets}}</td>
+          <td>{{ex.reps}}</td>
+          <td><button class="btn btn-danger" (click)="removeExercise(ex.id)">DELETE</button></td>
+        </tr>
+      </tbody>
+  </table>
+</div>
+
+<div id="exerciseDetail" *ngIf="selected">
+  <button class="btn btn-primary" (click)="displayTable()">Return to Exercise List</button>
+  <p>{{selected.name}}</p>
+  <p>{{selected.description}}</p>
+  <!-- <p>{{selected.imgUrl}}</p> -->
+  <!-- <p>{{selected.videoUrl}}</p> -->
+  <p><button (click)="setUpdateExercise()">EDIT DETAILS</button></p>
+</div>
+<div>
+  <form *ngIf="selected && isUpdatingExercise">
+    <br>
+    <input type="text" name="exercise" [(ngModel)] = "newExercise.name" placeholder= 'Exercise Name'>
+    <br>
+    <input type="text" name="newExercise" [(ngModel)] = "newExercise.description" placeholder="Description">
+    <br>
+    <input type="number" name="newExercise" [(ngModel)] = "newExercise.sets" placeholder="SETS">
+    <br>
+    <input type="number" name="newExercise" [(ngModel)] = "newExercise.reps" placeholder="REPS">
+    <br>
+    <button class="btn btn-primary" (click)="displayTable()">CANCEL</button>
+    <button class="btn btn-success"type="submit" (click)="updateExercise(isUpdatingExercise)"><em>confirm update</em></button>
+  </form>
+</div>
