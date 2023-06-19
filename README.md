@@ -16,8 +16,18 @@ This climbing trainer training app will allow users to login and choose a prefor
 * restAPI
 * postman
 * javaScript
+* Angular
+* TypeScript
+* VS Code
 
 # Lessons learned:
+* ------------THIRD BUILD--------------------------------------
+* For this third round building of this exercise tracking application I used Angularrebuild this appliaction. I utilizing Angular I was able to create a frontend in a more sophsticated and dyamac manner.
+* To ensure seamless integration with the existing infrastructure, I capitalized on the Java Backend REST API that I had developed for the initial version. By reusing this backend, I could maintain data consistency and compatibility, saving valuable time and effort. The REST API facilitated communication between the frontend and backend, enabling the application to efficiently handle data requests and responses.
+* The use of TypeScript added an extra layer of reliability to the codebase. TS allowed me to develop more stable and maintainable code than the original build. TypeScript's support for modern ECMAScript features and its enhanced tooling capabilities further contributed to the overall development experience.
+* Further enhancments will include adding a list of exercises to workouts, user functionality - including admin, 'trainer', and 'athlete' levels, a more robust datdabase, and a commenting on exercises. these future functions will be branched and tested before being pushed to the main branch.
+
+
 
 * ------------SECONDARY BUILD----------------------------------
 * Upon the second build I applied javaScript to dynamically build elements, as well as implement baisc CRUD logic.

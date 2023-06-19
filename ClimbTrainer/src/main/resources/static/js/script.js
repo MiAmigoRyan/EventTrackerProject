@@ -12,7 +12,7 @@ function init() {
 
 function getExercises() {
 	let xhr = new XMLHttpRequest();
-	xhr.open('GET', '/api/exercises');
+	xhr.open('GET', 'api/exercises');
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
@@ -29,12 +29,16 @@ function getExercises() {
 
 function darkModeToggle() {
   let html = document.querySelector('html');
-  let currentTheme = html.getAttribute('data-bs-theme');
+  let currentTheme = dark;
 
   if (currentTheme === 'dark') {
-    html.setAttribute('data-bs-theme', 'light');
+  //  html.setAttribute('data-bs-theme', 'light');
+    html.style.backgroundColor= 'white';
+    html.style.color='black';
   } else {
-    html.setAttribute('data-bs-theme', 'dark');
+   // html.setAttribute('data-bs-theme', 'dark');
+      html.style.backgroundColor= 'black';
+    html.style.color='white';
   }
 }
 
@@ -43,10 +47,11 @@ function modeToggle() {
   modeToggle.addEventListener('change', darkModeToggle);
 }
 
-function modeToggle() {
-  let modeToggle = document.getElementById('modeToggle');
-  modeToggle.addEventListener('click', darkModeToggle);
-}
+
+//function modeToggle() {
+  //let modeToggle = document.getElementById('modeToggle');
+  //modeToggle.addEventListener('click', darkModeToggle);
+//}
 
 function createGetExerciseByIdForm() {
  let exerciseByIdContainer = document.getElementById('findById');
@@ -76,7 +81,7 @@ function createGetExerciseByIdForm() {
 function getExerciseById(exerciseId) {
 	let xhr = new XMLHttpRequest();
 
-	xhr.open('GET', '/api/exercises/' + exerciseId);
+	xhr.open('GET', 'api/exercises/' + exerciseId);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
