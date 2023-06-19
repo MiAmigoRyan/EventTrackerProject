@@ -5,17 +5,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app.component';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
+//import { ModeSwitchComponent } from './components/mode-switch/mode-switch.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+   // ModeSwitchComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSlideToggleModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

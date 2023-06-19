@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
+import { Exercise } from 'src/app/models/exercise';
 import { environment } from 'src/environments/environment';
-import { Exercise } from '../models/exercise';
+
 
 @Injectable({
   providedIn: 'root'

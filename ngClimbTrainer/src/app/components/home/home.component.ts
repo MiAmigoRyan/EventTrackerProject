@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Exercise } from 'src/app/models/exercise';
-import { ExerciseService } from 'src/app/services/exercise.service';
+import { ColorthemeService } from 'src/app/services/colortheme/colortheme.service';
+import { ExerciseService } from 'src/app/services/exercise/exercise.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
 
@@ -13,9 +14,11 @@ export class HomeComponent implements OnInit {
   newExercise: Exercise = new Exercise();
   selected: Exercise|null=null;
   isUpdatingExercise: Exercise|null=null;
+  isDarkmode = false;
 
   constructor(
-    private exerciseService: ExerciseService
+    private exerciseService: ExerciseService,
+    private themeService: ColorthemeService
   ){}
 
   ngOnInit(): void {
@@ -84,4 +87,8 @@ export class HomeComponent implements OnInit {
     })
 
   }
+toggleTheme(): void {
+    this.themeService.toggleTheme();
+  }
+
 }

@@ -1,15 +1,16 @@
 <h1>EXERCISE TRACKER💪</h1>
+<mat-slide-toggle (change)="toggleTheme()">dark mode</mat-slide-toggle>
 <hr>
 <div>
   <form>ADD NEW EXERCISE:
     <br>
-    <input type="text" [(ngModel)] = "newExercise.name" placeholder= 'Exercise Name'>
+    <input type="text" name="newName" [(ngModel)] = "newExercise.name" placeholder= 'Exercise Name'>
     <br>
-    <input type="text" [(ngModel)] = "newExercise.description" placeholder="Description">
+    <input type="text" name="newDescription" [(ngModel)] = "newExercise.description" placeholder="Description">
     <br>
-    <input type="text" [(ngModel)] = "newExercise.sets" placeholder="SETS">
+    <input type="number" name="newSets" (ngModel) = "newExercise.sets" placeholder="SETS">
     <br>
-    <input type="text" [(ngModel)] = "newExercise.reps" placeholder="REPS">
+    <input type="number" name="newReps" (ngModel) = "newExercise.reps" placeholder="REPS">
     <br>
     <button class="btn btn-success"type="submit" (click)="createExercise(newExercise)">ADD EXERCISE</button>
   </form>
